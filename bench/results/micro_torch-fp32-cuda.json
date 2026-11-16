@@ -1,0 +1,90 @@
+{
+  "label": "torch-fp32-cuda",
+  "embedder": "torch-fp32-cuda",
+  "reranker": "torch-fp32-cuda",
+  "model_load_s": 13.54,
+  "rss_mb_before": 31.4,
+  "rss_mb_after_load": 1162.8,
+  "rss_mb_after_runs": 1515.1,
+  "runs": 30,
+  "env": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_logical": 2,
+    "cpu_physical": 1,
+    "ram_gb": 13.6,
+    "torch": "2.14.1+cu130",
+    "torch_threads": 1,
+    "cuda": true,
+    "gpu": "Tesla T4"
+  },
+  "results": [
+    {
+      "task": "embed 1 queries",
+      "batch": 1,
+      "n": 30,
+      "mean": 10.03,
+      "p50": 10.03,
+      "p95": 10.37,
+      "p99": 10.41,
+      "min": 9.72,
+      "max": 10.43
+    },
+    {
+      "task": "embed 8 queries",
+      "batch": 8,
+      "n": 30,
+      "mean": 14.9,
+      "p50": 14.64,
+      "p95": 18.83,
+      "p99": 22.38,
+      "min": 12.67,
+      "max": 23.78
+    },
+    {
+      "task": "embed 32 queries",
+      "batch": 32,
+      "n": 30,
+      "mean": 19.67,
+      "p50": 19.82,
+      "p95": 20.73,
+      "p99": 20.96,
+      "min": 18.07,
+      "max": 21.01
+    },
+    {
+      "task": "embed 32 passages",
+      "batch": 32,
+      "n": 10,
+      "mean": 214.79,
+      "p50": 213.03,
+      "p95": 224.45,
+      "p99": 229.19,
+      "min": 210.69,
+      "max": 230.37
+    },
+    {
+      "task": "rerank 10 passages",
+      "batch": 10,
+      "n": 30,
+      "mean": 58.9,
+      "p50": 59.05,
+      "p95": 60.58,
+      "p99": 61.31,
+      "min": 55.5,
+      "max": 61.58
+    },
+    {
+      "task": "rerank 30 passages",
+      "batch": 30,
+      "n": 30,
+      "mean": 161.5,
+      "p50": 157.44,
+      "p95": 176.05,
+      "p99": 176.17,
+      "min": 155.73,
+      "max": 176.21
+    }
+  ]
+}

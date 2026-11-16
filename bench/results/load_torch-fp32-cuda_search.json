@@ -1,0 +1,74 @@
+{
+  "label": "torch-fp32-cuda_search",
+  "endpoint": "search",
+  "server": {
+    "status": "ok",
+    "embedder": "torch-fp32-cuda",
+    "reranker": "torch-fp32-cuda",
+    "passages": 587,
+    "pool": 30
+  },
+  "duration_s": 15.0,
+  "levels": [
+    {
+      "concurrency": 1,
+      "errors": 0,
+      "rps": 5.53,
+      "n": 83,
+      "mean": 182.86,
+      "p50": 183.14,
+      "p95": 214.19,
+      "p99": 221.52,
+      "min": 121.25,
+      "max": 221.78
+    },
+    {
+      "concurrency": 2,
+      "errors": 0,
+      "rps": 4.93,
+      "n": 74,
+      "mean": 406.63,
+      "p50": 404.1,
+      "p95": 442.23,
+      "p99": 528.52,
+      "min": 344.33,
+      "max": 558.9
+    },
+    {
+      "concurrency": 4,
+      "errors": 0,
+      "rps": 4.8,
+      "n": 72,
+      "mean": 846.44,
+      "p50": 863.16,
+      "p95": 918.72,
+      "p99": 1014.09,
+      "min": 627.57,
+      "max": 1060.71
+    },
+    {
+      "concurrency": 8,
+      "errors": 0,
+      "rps": 5.0,
+      "n": 75,
+      "mean": 1552.55,
+      "p50": 1547.52,
+      "p95": 2033.45,
+      "p99": 2145.82,
+      "min": 818.07,
+      "max": 2404.44
+    }
+  ],
+  "client_env": {
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_logical": 2,
+    "cpu_physical": 1,
+    "ram_gb": 13.6,
+    "torch": "2.14.1+cu130",
+    "torch_threads": 1,
+    "cuda": true,
+    "gpu": "Tesla T4"
+  }
+}
