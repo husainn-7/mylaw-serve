@@ -1,0 +1,61 @@
+{
+  "label": "onnx-fp32-cpu_onnx-int8-cpu_search",
+  "endpoint": "search",
+  "server": {
+    "status": "ok",
+    "embedder": "onnx-fp32-cpu",
+    "reranker": "onnx-int8-cpu",
+    "passages": 587,
+    "pool": 30
+  },
+  "duration_s": 15.0,
+  "levels": [
+    {
+      "concurrency": 1,
+      "errors": 0,
+      "rps": 0.07,
+      "n": 1,
+      "mean": 8530.31,
+      "p50": 8530.31,
+      "p95": 8530.31,
+      "p99": 8530.31,
+      "min": 8530.31,
+      "max": 8530.31
+    },
+    {
+      "concurrency": 2,
+      "errors": 0,
+      "rps": 0.13,
+      "n": 2,
+      "mean": 16740.09,
+      "p50": 16740.09,
+      "p95": 17643.84,
+      "p99": 17724.18,
+      "min": 15735.91,
+      "max": 17744.26
+    },
+    {
+      "concurrency": 4,
+      "errors": 0,
+      "rps": 0.0,
+      "n": 0,
+      "mean": null,
+      "p50": null,
+      "p95": null,
+      "p99": null,
+      "min": null,
+      "max": null
+    }
+  ],
+  "client_env": {
+    "python": "3.13.18",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_logical": 2,
+    "cpu_physical": 1,
+    "ram_gb": 13.6,
+    "torch": "2.14.1+cpu",
+    "torch_threads": 1,
+    "cuda": false
+  }
+}

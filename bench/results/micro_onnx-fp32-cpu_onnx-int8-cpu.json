@@ -1,0 +1,89 @@
+{
+  "label": "onnx-fp32-cpu_onnx-int8-cpu",
+  "embedder": "onnx-fp32-cpu",
+  "reranker": "onnx-int8-cpu",
+  "model_load_s": 5.84,
+  "rss_mb_before": 31.0,
+  "rss_mb_after_load": 558.9,
+  "rss_mb_after_runs": 2064.6,
+  "runs": 20,
+  "env": {
+    "python": "3.13.18",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "cpu_logical": 2,
+    "cpu_physical": 1,
+    "ram_gb": 13.6,
+    "torch": "2.14.1+cpu",
+    "torch_threads": 1,
+    "cuda": false
+  },
+  "results": [
+    {
+      "task": "embed 1 queries",
+      "batch": 1,
+      "n": 20,
+      "mean": 28.65,
+      "p50": 28.1,
+      "p95": 30.72,
+      "p99": 31.25,
+      "min": 27.6,
+      "max": 31.38
+    },
+    {
+      "task": "embed 8 queries",
+      "batch": 8,
+      "n": 20,
+      "mean": 254.56,
+      "p50": 290.67,
+      "p95": 311.94,
+      "p99": 314.36,
+      "min": 171.77,
+      "max": 314.97
+    },
+    {
+      "task": "embed 32 queries",
+      "batch": 32,
+      "n": 20,
+      "mean": 796.86,
+      "p50": 722.79,
+      "p95": 1204.25,
+      "p99": 1208.19,
+      "min": 703.62,
+      "max": 1209.17
+    },
+    {
+      "task": "embed 32 passages",
+      "batch": 32,
+      "n": 6,
+      "mean": 13275.79,
+      "p50": 13130.64,
+      "p95": 13802.66,
+      "p99": 13977.37,
+      "min": 13108.86,
+      "max": 14021.05
+    },
+    {
+      "task": "rerank 10 passages",
+      "batch": 10,
+      "n": 20,
+      "mean": 2931.89,
+      "p50": 2530.07,
+      "p95": 3717.64,
+      "p99": 5722.22,
+      "min": 2496.12,
+      "max": 6223.36
+    },
+    {
+      "task": "rerank 30 passages",
+      "batch": 30,
+      "n": 20,
+      "mean": 9261.49,
+      "p50": 9357.93,
+      "p95": 9659.4,
+      "p99": 9661.2,
+      "min": 8449.36,
+      "max": 9661.65
+    }
+  ]
+}
