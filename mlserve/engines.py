@@ -37,20 +37,37 @@ class TorchReranker:
         return [float(s) for s in scores]
 
 
+def combine_names(embedder_name, reranker_name):
+    """One label for a pair of engines, used in result file names and tables."""
+    return embedder_name if embedder_name == reranker_name else f"{embedder_name}_{reranker_name}"
+
+
+ENGINES = ["torch", "onnx", "onnx-int8-rerank", "onnx-int8", "fake"]
+
+
 def load_engines(engine=None, device=None):
     engine = engine or os.environ.get("ENGINE", "torch")
     device = device or os.environ.get("DEVICE", "cpu")
 
-    threads = os.environ.get("TORCH_THREADS")
-    if threads and engine == "torch":
-        import torch
-
-        torch.set_num_threads(int(threads))
-
     if engine == "torch":
+        threads = os.environ.get("TORCH_THREADS")
+        if threads:
+            import torch
+
+            torch.set_num_threads(int(threads))
         return TorchEmbedder(device=device), TorchReranker(device=device)
+
+    if engine in ("onnx", "onnx-int8", "onnx-int8-rerank"):
+        from mlserve.onnx_engines import OnnxEmbedder, OnnxReranker
+
+        root = os.environ.get("MODELS_DIR", "models/onnx")
+        embed_variant = "int8" if engine == "onnx-int8" else "fp32"
+        rerank_variant = "fp32" if engine == "onnx" else "int8"
+        return OnnxEmbedder(f"{root}/embedder", embed_variant), OnnxReranker(f"{root}/reranker", rerank_variant)
+
     if engine == "fake":
         from mlserve.fake import FakeEmbedder, FakeReranker
 
         return FakeEmbedder(), FakeReranker()
-    raise ValueError(f"unknown engine {engine!r}. Available: torch, fake")
+
+    raise ValueError(f"unknown engine {engine!r}. Available: {', '.join(ENGINES)}")

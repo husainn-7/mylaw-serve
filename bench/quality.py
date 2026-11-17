@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from mlserve.engines import load_engines  # noqa: E402
+from mlserve.engines import combine_names, load_engines  # noqa: E402
 from mlserve.envinfo import env_info  # noqa: E402
 from mlserve.metrics import collapse, first_gold_rank, metrics_for  # noqa: E402
 from mlserve.passages import load_passages  # noqa: E402
@@ -63,7 +63,7 @@ def main(argv=None):
     questions = [q for q in map(json.loads, open(args.questions, encoding="utf-8")) if q["answerable"]]
     metrics, rows, latency = evaluate(service, questions)
 
-    label = args.label or embedder.name
+    label = args.label or combine_names(embedder.name, reranker.name)
     result = {
         "label": label,
         "embedder": embedder.name,

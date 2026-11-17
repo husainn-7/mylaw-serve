@@ -15,6 +15,7 @@ import httpx
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from mlserve.engines import combine_names  # noqa: E402
 from mlserve.envinfo import env_info  # noqa: E402
 from mlserve.passages import load_passages  # noqa: E402
 from mlserve.stats import summarize  # noqa: E402
@@ -92,7 +93,7 @@ def main(argv=None):
     docs = [p["text"] for p in passages[:: max(1, len(passages) // 30)]][:30]
     payloads = make_payloads(args.endpoint, questions, docs)
 
-    label = args.label or f"{health['embedder']}_{args.endpoint}"
+    label = args.label or f"{combine_names(health['embedder'], health['reranker'])}_{args.endpoint}"
     levels = []
     print(f"\n=== load test: {label} -> /{args.endpoint} ({args.duration:.0f}s per level) ===")
     print(f"{'clients':>7s} {'requests':>9s} {'errors':>7s} {'req/s':>8s} {'p50 ms':>9s} {'p95 ms':>9s} {'p99 ms':>9s}")

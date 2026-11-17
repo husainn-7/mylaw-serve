@@ -12,7 +12,7 @@ import psutil
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from mlserve.engines import QUERY_PREFIX, load_engines  # noqa: E402
+from mlserve.engines import QUERY_PREFIX, combine_names, load_engines  # noqa: E402
 from mlserve.envinfo import env_info  # noqa: E402
 from mlserve.passages import doc_text, load_passages  # noqa: E402
 from mlserve.stats import summarize  # noqa: E402
@@ -71,7 +71,7 @@ def main(argv=None):
         lat = timed(lambda: reranker.score(questions[0], subset), args.runs, args.warmup)
         rows.append({"task": f"rerank {n} passages", "batch": n, **summarize(lat)})
 
-    label = args.label or embedder.name
+    label = args.label or combine_names(embedder.name, reranker.name)
     result = {
         "label": label,
         "embedder": embedder.name,
