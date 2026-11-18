@@ -74,3 +74,14 @@ def test_loadtest_explains_when_the_server_is_down(corpus, tmp_path):
     with pytest.raises(SystemExit) as e:
         loadtest.main(["--url", "http://127.0.0.1:9", "--questions", corpus["questions"], "--chunks", corpus["chunks"], "--out", str(tmp_path)])
     assert "Is the server running" in str(e.value)
+
+
+def test_quality_pool_option_changes_the_label_and_is_recorded(corpus, tmp_path):
+    out = tmp_path / "results"
+    result = quality.main([
+        "--engine", "fake", "--chunks", corpus["chunks"], "--questions", corpus["questions"],
+        "--index-dir", str(tmp_path / "index"), "--out", str(out), "--pool", "3",
+    ])
+    assert result["label"] == "fake_pool3" and result["pool"] == 3
+    assert (out / "quality_fake_pool3.json").exists()
+    assert result["metrics"]["all"]["n"] == 6

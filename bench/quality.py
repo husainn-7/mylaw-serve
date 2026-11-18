@@ -52,22 +52,26 @@ def main(argv=None):
     ap.add_argument("--questions", default="data/questions.jsonl")
     ap.add_argument("--index-dir", default="index")
     ap.add_argument("--rebuild", action="store_true")
+    ap.add_argument("--pool", type=int, default=30, help="how many dense candidates the reranker scores")
     ap.add_argument("--label", default=None)
     ap.add_argument("--out", default="bench/results")
     args = ap.parse_args(argv)
 
     embedder, reranker = load_engines(args.engine, args.device)
     passages = load_passages(args.chunks)
-    service = SearchService.build(embedder, reranker, passages, index_dir=args.index_dir, rebuild=args.rebuild)
+    service = SearchService.build(embedder, reranker, passages, index_dir=args.index_dir, rebuild=args.rebuild, pool=args.pool)
 
     questions = [q for q in map(json.loads, open(args.questions, encoding="utf-8")) if q["answerable"]]
     metrics, rows, latency = evaluate(service, questions)
 
     label = args.label or combine_names(embedder.name, reranker.name)
+    if args.pool != 30 and not args.label:
+        label += f"_pool{args.pool}"
     result = {
         "label": label,
         "embedder": embedder.name,
         "reranker": reranker.name,
+        "pool": args.pool,
         "metrics": metrics,
         "sequential_latency_ms": latency,
         "env": env_info(),
